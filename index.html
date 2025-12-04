@@ -208,7 +208,7 @@ console.log(persona.saludo())
     </div>
 
     <script>
-        // Simple runner: captura botones con data-code y ejecuta en sandboxed function
+       
         function safeRun(code, outEl) {
             try {
                 const logs = [];
@@ -218,7 +218,7 @@ console.log(persona.saludo())
 
                     const formatted = args.map(a => {
 
-                        // Si es un objeto → lo mostramos formateado sin comillas
+                       
                         if (typeof a === "object") {
                             try {
                                 return JSON.stringify(a, null, 2);
@@ -227,7 +227,7 @@ console.log(persona.saludo())
                             }
                         }
 
-                        // Si es string → NO usamos JSON.stringify (así NO pone comillas)
+                        
                         return a;
                     }).join(" ");
 
@@ -240,7 +240,7 @@ console.log(persona.saludo())
 
                 console.log = originalLog;
 
-                // Aquí va la clave → cada log en una línea REAL
+               
                 outEl.textContent = logs.join("\n");
 
             } catch (err) {
@@ -258,7 +258,7 @@ console.log(persona.saludo())
             });
         });
 
-        // Playground
+     
         document.getElementById('run-play').addEventListener('click', () => {
             const code = document.getElementById('playcode').value;
             safeRun(code, document.getElementById('out-play'));
