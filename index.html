@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Objetos en JavaScript </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="logo">JS</div>
+            <div>
+                <h1>Objetos en JavaScript </h1>
+                <p class="lead">Guía completa con ejemplos ejecutables.</p>
+            </div>
+        </header>
+
+        <nav class="toc">
+            <a href="#que-es">¿Qué es un objeto?</a>
+            <a href="#acceso">Acceso y modificación</a>
+            <a href="#creacion">Formas de creación</a>
+            <a href="#recorrer">Recorrer objetos</a>
+            <a href="#avanzado">Avanzado</a>
+            <a href="#ejercicios">Ejercicios</a>
+            <a href="#play">Playground</a>
+        </nav>
+
+        <div class="cols">
+            <main>
+                <section id="que-es" class="card">
+                    <h2>¿Qué es un objeto?</h2>
+                    <p>Un objeto es una colección de pares <em>clave–valor</em>. Puede contener propiedades (datos) y
+                        métodos (funciones).</p>
+                    <pre class="code"><code>// Ejemplo básico
+const persona = {
+  nombre: "Juan",
+  edad: 25,
+  saludar() {
+    console.log("Hola, soy " + this.nombre);
+  }
+};
+persona.saludar();
+</code></pre>
+                    <button class="run-btn"
+                        data-code="const persona = { nombre: 'Juan', edad: 25, saludar(){ console.log('Hola, soy ' + this.nombre); } }; persona.saludar();">
+                        Ejecutar ejemplo
+                    </button>
+                    <div class="output" id="out-que-es">Salida...</div>
+                </section>
+
+                <section id="acceso" class="card">
+                    <h2>Acceso, modificación y eliminación</h2>
+                    <p class="small">Usa <code>obj.prop</code> o <code>obj['prop']</code> para acceder y modificar.
+                        Borra con <code>delete obj.prop</code>.</p>
+                    <pre class="code"><code>const obj = { a: 1 };
+console.log(obj.a);
+obj.b = 2;
+obj['c'] = 3;
+delete obj.a;
+console.log(obj);
+</code></pre>
+                    <button class="run-btn"
+                        data-code="const obj = { a: 1 };console.log(obj.a);obj.b = 2;obj['c'] = 3;delete obj.a;console.log(obj);">Ejecutar</button>
+                    <div class="output" id="out-acceso">Salida...</div>
+                </section>
+
+                <section id="creacion" class="card">
+                    <h2>Formas de creación</h2>
+                    <p class="small">Literal, constructor, función constructora, y clases (azúcar sintáctico).</p>
+                    <pre class="code"><code>// Literal
+const a = { x: 1 };
+
+// Constructor
+const b = new Object(); b.y = 2;
+
+// Función constructora
+function Persona(n){this.nombre = n}
+const p = new Persona('Ana');
+
+// Clase ES6
+class PersonaC { constructor(n){ this.nombre = n } saludar(){ return `Hola, soy ${this.nombre}` } }
+const pc = new PersonaC('Luis');
+console.log(a,b,p,pc.saludar());
+</code></pre>
+                    <button class="run-btn"
+                        data-code="const a = { x: 1 };const b = new Object(); b.y = 2;function Persona(n){this.nombre = n}const p = new Persona('Ana');class PersonaC { constructor(n){ this.nombre = n } saludar(){ return `Hola, soy ${this.nombre}` } }const pc = new PersonaC('Luis');console.log(a,b,p,pc.saludar());">Ejecutar</button>
+                    <div class="output" id="out-creacion">Salida...</div>
+                </section>
+
+                <section id="recorrer" class="card">
+                    <h2>Recorrer objetos</h2>
+                    <p class="small">Usa <code>for...in</code>,<br> o mejor<br> <code>Object.keys/values/entries</code>
+                        con
+                        <code>for...of</code>.
+                    </p>
+                    <pre class="code"><code>const persona = { nombre: 'Carmen', edad: 32 };
+for (let k in persona) <precode>{<br>console.log(k, persona[k])<br>};</precode>
+
+for (const [k,v] of Object.entries(persona))<precode>{</precode><br> console.log(k,v)<precode><br>}</precode>;
+</code></pre>
+                    <button class="run-btn"
+                        data-code="const persona = { nombre: 'Carmen', edad: 32 };for (let k in persona) console.log(k, persona[k]);for (const [k,v] of Object.entries(persona)) console.log(k,v);">Ejecutar</button>
+                    <div class="output" id="out-recorrer">Salida...</div>
+                </section>
+
+                <section id="avanzado" class="card">
+                    <h2>Temas modernos y avanzados</h2>
+                    <ul>
+                        <li>Desestructuración: <code>const { nombre } = obj</code></li>
+                        <li>Optional chaining: <code>obj.a?.b</code></li>
+                        <li>Spread / fusionar objetos: <code>{...a, ...b}</code></li>
+                        <li>JSON vs objeto: <code>JSON.stringify / JSON.parse</code></li>
+                        <li>Claves dinámicas: <code>{ [key]: valor }</code></li>
+                    </ul>
+                    <pre class="code"><code>// Desestructuración y spread
+const obj1 = { a: 1, b: 2 };
+const obj2 = { b: 20, c: 3 };
+const fusion = { ...obj1, ...obj2 };
+const { a, b } = fusion;
+console.log(fusion, a, b);
+
+// Optional chaining
+const deep = { x: { y: 5 } };
+console.log(deep.x?.y, deep.z?.y);
+</code></pre>
+                    <button class="run-btn"
+                        data-code="const obj1 = { a: 1, b: 2 };const obj2 = { b: 20, c: 3 };const fusion = { ...obj1, ...obj2 };const { a, b } = fusion;console.log(fusion, a, b);const deep = { x: { y: 5 } };console.log(deep.x?.y, deep.z?.y);">Ejecutar</button>
+                    <div class="output" id="out-avanzado">Salida...</div>
+                </section>
+
+                <section id="ejercicios" class="card">
+                    <h2>Ejercicios para clase</h2>
+                    <ol>
+                        <li class="exercise">
+                            Crear un objeto <code>libro</code> con dos propiedades (<code>titulo</code> y
+                            <code>autor</code>)
+                            y un método <code>info()</code> que devuelva un texto con ambos valores.
+                        </li>
+
+                        <li class="exercise">
+                            Crear un objeto <code>estudiante</code> con su <code>nombre</code> y tres
+                            <code>notas</code>,
+                            y agregar un método <code>promedio()</code> que devuelva el promedio de esas notas.
+                        </li>
+
+                        <li class="exercise">
+                            Escribir una función <code>fusionar(a, b)</code> que reciba dos objetos y devuelva un nuevo
+                            objeto
+                            con las propiedades de ambos sin modificar los originales.
+                        </li>
+
+                        <li class="exercise">
+                            Crear una función que reciba un objeto y un nombre de propiedad, y devuelva
+                            <code>true</code> si esa propiedad existe usando optional chaining (<code>obj?.prop</code>).
+                        </li>
+                    </ol>
+                    <p class="hint">Pistas: usa <code>Object.entries</code>, <code>reduce</code>, y el operador spread.
+                    </p>
+                </section>
+
+                <section id="play" class="card">
+                    <h2>Playground </h2>
+                    <div class="playground">
+                        <textarea id="playcode">// Ejemplo
+const persona = { 
+    nombre: 'David',
+     notas: [8, 9, 7], 
+     promedio(){ 
+        return this.notas.reduce((a,b) => a+b, 0)/this.notas.length 
+        },
+     saludo(){
+        return `Hola me llamo ${this.nombre} y tengo ${this.edad}`
+     }   
+    };
+console.log(persona);
+console.log(`Este es el promedio ${persona.promedio()}`);
+console.log(persona.saludo())
+</textarea>
+                        <div style="display:flex;gap:8px;margin-top:8px">
+                            <button class="run-btn" id="run-play">Ejecutar playground</button>
+                            <button class="run-btn" id="clear-out">Limpiar salida</button>
+                        </div>
+                        <div class="output" id="out-play">Salida...</div>
+                    </div>
+                </section>
+
+            </main>
+
+            <aside>
+                <h3>Resumen rápido</h3>
+                <ul>
+                    <li>Objeto = propiedades + métodos</li>
+                    <li>Acceso: <code>obj.prop</code> / <code>obj['prop']</code></li>
+                    <li>Recorrer: <code>Object.keys/values/entries</code></li>
+                    <li>Copiar/fusionar: spread o <code>Object.assign</code></li>
+                    <li>JSON es texto: <code>JSON.stringify/parse</code></li>
+                </ul>
+
+
+
+            </aside>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Simple runner: captura botones con data-code y ejecuta en sandboxed function
+        function safeRun(code, outEl) {
+            try {
+                const logs = [];
+                const originalLog = console.log;
+
+                console.log = function (...args) {
+
+                    const formatted = args.map(a => {
+
+                        // Si es un objeto → lo mostramos formateado sin comillas
+                        if (typeof a === "object") {
+                            try {
+                                return JSON.stringify(a, null, 2);
+                            } catch {
+                                return String(a);
+                            }
+                        }
+
+                        // Si es string → NO usamos JSON.stringify (así NO pone comillas)
+                        return a;
+                    }).join(" ");
+
+                    logs.push(formatted);
+                    originalLog.apply(console, args);
+                };
+
+                const fn = new Function(code);
+                fn();
+
+                console.log = originalLog;
+
+                // Aquí va la clave → cada log en una línea REAL
+                outEl.textContent = logs.join("\n");
+
+            } catch (err) {
+                outEl.textContent = "Error: " + err.message;
+            }
+        }
+
+
+        document.querySelectorAll('.run-btn[data-code]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.getAttribute('data-code');
+                const parent = btn.closest('section');
+                const out = parent.querySelector('.output');
+                safeRun(code, out);
+            });
+        });
+
+        // Playground
+        document.getElementById('run-play').addEventListener('click', () => {
+            const code = document.getElementById('playcode').value;
+            safeRun(code, document.getElementById('out-play'));
+        });
+        document.getElementById('clear-out').addEventListener('click', () => {
+            document.getElementById('out-play').textContent = 'Salida...';
+        });
+    </script>
+</body>
+
+</html>
